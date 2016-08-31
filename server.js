@@ -23,7 +23,7 @@ var server = http.createServer((req, res) => {
 
     var api = new Api(findUser(email))
     api.book(session)
-      .then(() => res.end('<h1>stana</h1>'))
+      .then(() => res.end('<h1>Your session is booked!</h1>'))
       .catch(err => res.end('<h1>' + err + '</h1>'))
 
   } else {
