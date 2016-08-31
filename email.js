@@ -5,7 +5,6 @@ var log = require('winston')
 
 var sendEmail = (recipient, link, name) => {
   log.info('send email', recipient, name, link)
-  return;
   return mailjet
     .post("send")
     .request({
