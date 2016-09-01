@@ -1,9 +1,11 @@
 var config = require('./config.json')
 var mailjet = require('node-mailjet')
   .connect(config.emailToken, config.emailSecret)
-var log = require('winston')
+var log = require('./logger')
 
 var sendEmail = (recipient, link, name) => {
+  log.info('fake send mail')
+  return
   log.info('send email', recipient, name, link)
   return mailjet
     .post("send")

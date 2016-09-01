@@ -4,8 +4,7 @@ var cheerio = require('cheerio');
 var Promise = require('bluebird')
 var db = require('./db')
 var programs = require('./programs')
-var log = require('winston')
-log.level = config.logLevel
+var log = require('./logger');
 var request = Promise.promisify(require("request"));
 
 function Api(user) {
@@ -17,7 +16,8 @@ function Api(user) {
     baseUrl: this.url,
     headers: {
       'club-id': config.clubId
-    }
+    },
+    timeout: config.timeout
   })
 }
 

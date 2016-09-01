@@ -3,8 +3,7 @@ var Promise = require('bluebird')
 var moment = require('moment')
 var config = require('./config.json')
 var userConfig = require('./user-config.json')
-var log = require('winston')
-log.level = config.logLevel
+var log = require('./logger')
 var sendEmail = require('./email.js')
 var Api = require('./api')
 
@@ -45,7 +44,7 @@ var makeFilter = (user) => {
     return !session.full &&
       !session.cancelled &&
       (!session.visit || !!session.visit && session.visit.state !== 'booked') &&
-      moment(session.booking_open_date)
+      moment(session.booking_open_date  )
       .isBefore(moment()) &&
       moment(session.booking_close_date)
       .isAfter(moment()) &&
@@ -75,10 +74,10 @@ var doProcess = Promise.coroutine(function*() {
       log.info('no suitable sessions found.')
       log.info()
     } else {
-      targetSessions.forEach(session => {
-        sendEmail(user.username, makeLink(user.username, session.id), template(session))
+      Promise.each(targetSessions, Promise.coroutine(function*(session) {
+        yield sendEmail(user.username, makeLink(user.username, session.id), template(session))
         db.setLastSent(user.username, dateKey(moment(session.start_date)), session.id)
-      })
+      }))
     }
   }))
 })
