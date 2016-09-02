@@ -59,8 +59,7 @@ var makeLink = (username, sessionId) => {
 }
 
 var doProcess = Promise.coroutine(function*() {
-
-  return Promise.each(userConfig, Promise.coroutine(function*(user) {
+  for (var user of userConfig) {
     log.info('----------')
     log.info('processing', user.username)
     log.info()
@@ -74,12 +73,13 @@ var doProcess = Promise.coroutine(function*() {
       log.info('no suitable sessions found.')
       log.info()
     } else {
-      Promise.each(targetSessions, Promise.coroutine(function*(session) {
+      for (var session of targetSessions) {
         yield sendEmail(user.username, makeLink(user.username, session.id), template(session))
         db.setLastSent(user.username, dateKey(moment(session.start_date)), session.id)
-      }))
+      }
     }
-  }))
+  }
+
 })
 
 module.exports = doProcess
