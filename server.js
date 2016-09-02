@@ -1,27 +1,28 @@
-var url = require('url')
-var http = require('http');
-var port = 3000;
+'use strict'
+const url = require('url')
+const http = require('http');
+const port = 3000;
 
-var Api = require('./helpers/api')
-var userConfig = require('./config/user-config.json')
-var Promise = require('bluebird')
+const Api = require('./helpers/api')
+const userConfig = require('./config/user-config.json')
+const Promise = require('bluebird')
 
-var findUser = (email) => {
+const findUser = (email) => {
   return userConfig.filter(c => {
     return c.username === email
   })[0]
 }
 
-var server = http.createServer((req, res) => {
+const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html');
 
-  var parts = url.parse(req.url, true)
+  const parts = url.parse(req.url, true)
   if (parts.pathname === '/send') {
-    var email = parts.query.email
-    var session = parts.query.session
+    const email = parts.query.email
+    const session = parts.query.session
 
-    var api = new Api(findUser(email))
+    const api = new Api(findUser(email))
     api.book(session)
       .then(() => res.end('<h1>Your session is booked!</h1>'))
       .catch(err => res.end('<h1>' + err + '</h1>'))
