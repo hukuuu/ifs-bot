@@ -4,8 +4,6 @@ var mailjet = require('node-mailjet')
 var log = require('./logger')
 
 var sendEmail = (recipient, link, name) => {
-  log.info('fake send mail')
-  return
   log.info('send email', recipient, name, link)
   return mailjet
     .post("send")
