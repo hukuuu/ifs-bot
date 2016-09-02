@@ -6,6 +6,8 @@ var db = require('./db')
 var programs = require('./programs')
 var log = require('./logger');
 var request = Promise.promisify(require("request"));
+var mailjet = require('node-mailjet')
+  .connect(config.emailToken, config.emailSecret)
 
 function Api(user) {
   this.user = user
@@ -58,6 +60,25 @@ Api.prototype.findFutureSessions = Promise.coroutine(function*() {
 
   return JSON.parse(response.body)
 });
+
+Api.prototype.sendEmail = function(link, name) {
+  var recipient = this.user.username
+  log.info('send email', recipient, name, link)
+  return mailjet
+    .post("send")
+    .request({
+      "MJ-TemplateID": "46050",
+      "MJ-TemplateLanguage": "true",
+      "FromEmail": config.fromEmail,
+      "Vars": {
+        "name": name,
+        "confirmation_link": link
+      },
+      "Recipients": [{
+        "Email": recipient
+      }]
+    })
+};
 
 Api.prototype.__request = Promise.coroutine(function*(options) {
   var cookieString = yield this.__getCookieString(true)
