@@ -1,5 +1,5 @@
 var Store = require('jfs')
-var db = new Store('data')
+var db = new Store('./data')
 
 var getCookie = (key) => {
   return db.getSync(key)

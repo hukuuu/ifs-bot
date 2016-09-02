@@ -1,8 +1,8 @@
 'use strict'
-const log = require('../logger')
+const log = require('../helpers/logger')
 const Promise = require('bluebird')
 const moment = require('moment')
-const config = require('../config.json')
+const config = require('../config/config.json')
 
 class Worker {
   constructor(options) {

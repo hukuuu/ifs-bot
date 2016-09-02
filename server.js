@@ -2,8 +2,8 @@ var url = require('url')
 var http = require('http');
 var port = 3000;
 
-var Api = require('./api')
-var userConfig = require('./user-config.json')
+var Api = require('./helpers/api')
+var userConfig = require('./config/user-config.json')
 var Promise = require('bluebird')
 
 var findUser = (email) => {

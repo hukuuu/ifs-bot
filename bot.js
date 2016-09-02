@@ -3,12 +3,11 @@
 const Promise = require('bluebird')
 const moment = require('moment')
 
-const config = require('./config.json')
-const users = require('./user-config.json')
-const log = require('./logger')
-const db = require('./db')
-const Api = require('./api')
-
+const config = require('./config/config.json')
+const users = require('./config/user-config.json')
+const log = require('./helpers/logger')
+const db = require('./helpers/db')
+const Api = require('./helpers/api')
 
 const Worker = require('./workers/worker');
 

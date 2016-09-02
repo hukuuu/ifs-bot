@@ -1,4 +1,4 @@
-var config = require('./config.json')
+var config = require('../config/config.json')
 var moment = require('moment')
 var cheerio = require('cheerio');
 var Promise = require('bluebird')
