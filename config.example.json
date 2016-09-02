@@ -1,10 +1,12 @@
 {
-    "logLevel": "info",
-    "url": "https://influxapp.com/",
-    "callback": "http://139.59.158.87:3000/send",
-    "clubId":"a932c526-1552-4ec0-8096-ee0be5a40ff3",
-    "interval": 1800000,
-    "emailToken": "public token from the mailjet api",
-    "emailSecret": "private token from the mailjet api",
-    "fromEmail": "legit email, set in mailjet"
+  "logLevel": "info",
+  "url": "https://influxapp.com/",
+  "callback": "http://139.59.158.87:3000/send",
+  "clubId": "a932c526-1552-4ec0-8096-ee0be5a40ff3",
+  "interval": 1800000,
+  "miniInterval": 5000,
+  "timeout": 5000,
+  "emailToken": "public token from the mailjet api",
+  "emailSecret": "private token from the mailjet api",
+  "fromEmail": "legit email, set in mailjet"
 }

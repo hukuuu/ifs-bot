@@ -2,11 +2,12 @@ var Store = require('jfs')
 var db = new Store('data')
 
 var getCookie = (key) => {
-  return db.getSync(key).cookie
+  return db.getSync(key)
+    .cookie
 }
 var getLastSent = (key, sub) => {
   var obj = db.getSync(key)
-  return obj.lastSent? obj.lastSent[sub] : null
+  return obj.lastSent ? obj.lastSent[sub] : null
 }
 var setCookie = (key, value) => {
   var obj = handle(db.getSync(key))

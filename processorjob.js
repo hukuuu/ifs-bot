@@ -44,7 +44,7 @@ var makeFilter = (user) => {
     return !session.full &&
       !session.cancelled &&
       (!session.visit || !!session.visit && session.visit.state !== 'booked') &&
-      moment(session.booking_open_date  )
+      moment(session.booking_open_date)
       .isBefore(moment()) &&
       moment(session.booking_close_date)
       .isAfter(moment()) &&
