@@ -1,7 +1,7 @@
-var config = require('../config/config.json')
-var moment = require('moment')
-var winston = require('winston');
-var log = new(winston.Logger)({
+const config = require('../config/config.json')
+const moment = require('moment')
+const winston = require('winston');
+const log = new(winston.Logger)({
   transports: [
     new(winston.transports.Console)({
       timestamp: function() {
