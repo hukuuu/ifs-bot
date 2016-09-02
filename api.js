@@ -28,11 +28,18 @@ Api.prototype.book = Promise.coroutine(function*(sessionId) {
   })
   var session = JSON.parse(response.body)
   this.__validate(session)
-  response = yield this.__request({
-    url: '/api/v1/sessions/' + sessionId + '/dropin',
+
+  var options = {
+    url: `/api/v1/sessions/${sessionId}/book`,
     method: 'POST',
-    formData: programs[session.program.id]
-  })
+  }
+  if (!this.user.multisport) {
+    options.url = `/api/v1/sessions/${sessionId}/dropin`
+    options.formData = programs[session.program.id]
+  }
+
+  response = yield this.__request(options)
+  log.debug(response.body)
   return response.statusCode
 })
 
