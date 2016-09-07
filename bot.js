@@ -34,6 +34,6 @@ Promise.coroutine(function*() {
   while (true) {
     log.info('tick')
     yield tick()
-    yield sleep(3000)
+    yield sleep(config.interval)
   }
 })()
