@@ -45,15 +45,15 @@ class Worker {
   }
 
   alreadySent(username, session) {
-    var sessionDate = moment(session.start_date)
-    var sub = this.dateKey(sessionDate)
-    var lastSent = this.db.getLastSent(username, sub)
+    const sessionDate = moment(session.start_date)
+    const sub = this.dateKey(sessionDate)
+    const lastSent = this.db.getLastSent(username, sub)
     log.silly(username, sub, lastSent, session.id, !lastSent && lastSent == session.id)
     return !!lastSent && lastSent == session.id
   }
 
   contain(configSessions, session) {
-    var start = moment(session.start_date)
+    const start = moment(session.start_date)
     return configSessions.filter(s => {
         return this.dateKey(start) === s
       })

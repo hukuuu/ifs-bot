@@ -1,36 +1,31 @@
-var Store = require('jfs')
-var db = new Store('./data')
-
-var getCookie = (key) => {
-  return db.getSync(key)
-    .cookie
-}
-var getLastSent = (key, sub) => {
-  var obj = db.getSync(key)
-  return obj.lastSent ? obj.lastSent[sub] : null
-}
-var setCookie = (key, value) => {
-  var obj = handle(db.getSync(key))
-  obj.cookie = value
-  db.saveSync(key, obj)
-  return obj
-}
-var setLastSent = (key, sub, value) => {
-  var obj = handle(db.getSync(key))
-  var lu = obj.lastSent || {}
-  lu[sub] = value
-  obj.lastSent = lu
-  db.saveSync(key, obj)
-  return obj
-}
-
-var handle = (obj) => {
-  return obj instanceof Error ? {} : obj
-}
+const Store = require('jfs')
+const db = new Store('./data')
 
 module.exports = {
-  getCookie: getCookie,
-  getLastSent: getLastSent,
-  setCookie: setCookie,
-  setLastSent: setLastSent
+  getCookie(key) {
+    return db.getSync(key)
+      .cookie
+  },
+  getLastSent(key, sub) {
+    const obj = db.getSync(key)
+    return obj.lastSent ? obj.lastSent[sub] : null
+  },
+  setCookie(key, value) {
+    const obj = this.__handle(db.getSync(key))
+    obj.cookie = value
+    db.saveSync(key, obj)
+    return obj
+  },
+  setLastSent(key, sub, value) {
+    const obj = this.__handle(db.getSync(key))
+    const lu = obj.lastSent || {}
+    lu[sub] = value
+    obj.lastSent = lu
+    db.saveSync(key, obj)
+    return obj
+  },
+
+  __handle(obj) {
+    return obj instanceof Error ? {} : obj
+  }
 }
